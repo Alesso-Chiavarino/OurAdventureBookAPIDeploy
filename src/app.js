@@ -9,13 +9,13 @@ const app = express()
 
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: './upload',
 }))
-app.use(cors());
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
