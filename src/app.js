@@ -8,12 +8,14 @@ import cors from 'cors'
 const app = express()
 
 // const __dirname = dirname(fileURLToPath(import.meta.url));
-const corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
+app.use((res, req, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
+    next();
+})
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload({
