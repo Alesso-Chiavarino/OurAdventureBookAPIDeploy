@@ -9,7 +9,7 @@ const app = express()
 
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(cors());
+// app.use(cors());
 
 const allowCors = (fn) => async (req, res) => {
 
