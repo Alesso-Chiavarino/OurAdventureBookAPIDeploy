@@ -38,11 +38,12 @@ export const getLetter = async (req, res) => {
 
 export const createLetter = async (req, res) => {
 
-    const {title, description, date} = req.body;
+    const {title, description, author, date} = req.body;
 
     const letter = await Letter.create({
         title,
         description,
+        author,
         date
     })
 
@@ -53,12 +54,13 @@ export const createLetter = async (req, res) => {
 
 export const updateLetter = async (req, res) => {
 
-    const {title, description, date} = req.body
-    const {id} = req.params
+    const {title, description, author, date} = req.body;
+    const {id} = req.params;
 
     const updatedLetter = await Letter.findByIdAndUpdate(id, {
         title,
         description,
+        author,
         date
     })
 
