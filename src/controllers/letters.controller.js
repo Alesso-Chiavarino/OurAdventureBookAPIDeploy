@@ -77,7 +77,7 @@ export const updateLetter = async (req, res) => {
 
 export const deleteLetter = async (req, res) => {
 
-    const { id } = req.params
+    const { id } = req.params;
 
     const removedLetter = await Letter.findByIdAndDelete(id)
 
