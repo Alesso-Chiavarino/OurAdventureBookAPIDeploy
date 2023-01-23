@@ -105,6 +105,8 @@ export const updateAdventure = async (req, res) => {
 
     try {
 
+        const oldPost = await Post.findById(req.params.id)
+
         if(req.files?.image) {
             const result = await uploadImage(req.files.image.tempFilePath)
             image = {
@@ -112,11 +114,13 @@ export const updateAdventure = async (req, res) => {
                 public_id: result.public_id
             }
             await fs.remove(req.files.image.tempFilePath);
+
+            if(oldPost.image.public_id) {
+                await deleteImage(oldPost.image.public_id)
+            }
+
         }
-
-        const oldPost = await Post.findById(req.params.id)
-        console.log('old post: ', oldPost)
-
+        
         const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
             title,
             description,
@@ -125,16 +129,10 @@ export const updateAdventure = async (req, res) => {
             image
         })
 
-        console.log(updatedPost)
-
         if(!updatedPost) return res.status(404).json({
             status: "error",
             error: "Post not found"
         })
-
-        if(updatedPost.image.public_id) {
-            await deleteImage(updatedPost.image.public_id)
-        }
 
         res.json(updatedPost);
         
