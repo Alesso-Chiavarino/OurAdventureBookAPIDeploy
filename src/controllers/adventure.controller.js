@@ -11,6 +11,22 @@ export const getAdventures = async (req, res) => {
         const adventures = await Post.paginate({}, {
             limit: TotalAdventures.length,
         })
+
+        if(req.query.total) {
+            if(req.query.total === 'true') {
+
+                const orderAdventuresReverse = () => {
+                    const orderedAdventures = TotalAdventures.sort((a, b) => {
+                        return new Date(a.date) - new Date(b.date);
+                    })
+                    return orderedAdventures;
+                }
+
+                const orderedAdventures = orderAdventuresReverse()
+
+                return res.send(orderedAdventures);
+            }
+        }
         
         if(req.query.limit || req.query.page || req.query.search) {
 
