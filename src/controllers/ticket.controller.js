@@ -33,7 +33,7 @@ export const getTicket = async (req, res) => {
 
     try {
 
-        const ticket = Ticket.findById(id)
+        const ticket = await Ticket.findById(id)
 
         if (!ticket) {
             return res.json({
@@ -70,7 +70,11 @@ export const createTicket = async (req, res) => {
 
         await Ticket.save()
 
-        res.json(ticket);
+        res.json({
+            status: "success",
+            message: "Ticket created successfully",
+            task
+        });
 
     } catch (error) {
         res.status(500).json({
