@@ -59,7 +59,7 @@ export const createTicket = async (req, res) => {
 
     try {
 
-        const ticket = new Ticket({
+        const ticket =  new Ticket({
             title,
             date,
             hour,
@@ -73,7 +73,7 @@ export const createTicket = async (req, res) => {
         res.json({
             status: "success",
             message: "Ticket created successfully",
-            task
+            ticket
         });
 
     } catch (error) {
