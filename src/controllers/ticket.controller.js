@@ -59,7 +59,7 @@ export const createTicket = async (req, res) => {
 
     try {
 
-        const ticket = await Ticket.create({
+        const ticket = new Ticket({
             title,
             date,
             hour,
