@@ -68,7 +68,7 @@ export const createTicket = async (req, res) => {
             price
         })
 
-        await Ticket.save()
+        await ticket.save()
 
         res.json({
             status: "success",
