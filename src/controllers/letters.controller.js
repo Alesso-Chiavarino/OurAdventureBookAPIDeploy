@@ -3,12 +3,21 @@ import Letter from "../models/Letter.js"
 export const getLetters = async (req, res) => {
 
     try {
-        const { page } = req.query;
+        const { page, limit } = req.query;
 
         const letters = await Letter.paginate({},{
             page,
             limit: 9
         })
+
+        if(req.query.limit) {
+            const limitedLetters = await Letter.paginate({},{
+                page,
+                limit
+            })
+
+            return res.json(limitedLetters);
+        }
 
         if(!letters) {
             return res.json({
